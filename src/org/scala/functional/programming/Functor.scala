@@ -8,6 +8,6 @@ trait Functor[F[_]] {
 
 object Functor extends App{
 
-  print("Begin")
+  print("Start")
 
 }
