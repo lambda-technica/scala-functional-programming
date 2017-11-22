@@ -1,5 +1,7 @@
 package org.scala.functional.programming
 
+import scala.annotation.tailrec
+
 sealed trait List[+A] {
 
 }
@@ -85,12 +87,31 @@ object List {
     foldLeft(list, List[A]())((acc, h) => Cons(h, acc))
   }
 
-  def append[A](element: A, list: List[A]): Unit = {
 
+  def sumFoldLeft(list: List[Int]): Int = {
+    foldLeft(list, 0)(_ + _)
+  }
 
+  def addToList(list: List[Int],  i : Int): List[Int] ={
 
+    @tailrec
+    def addToListRec(list: List[Int], acc: List[Int]) : List[Int] = list match {
+      case Nil => acc
+      case Cons (x, xs) => addToListRec (xs, Cons (x + i, acc) );
+
+    }
+
+   reverse( addToListRec(list, List()) )
 
   }
+
+
+  def addToList2(list: List[Int],  i : Int): List[Int] = {
+      foldRight(list, Nil:List[Int])( (h , t) => Cons( h + i  , t ) )
+
+  }
+
+
 
 }
 
@@ -119,4 +140,13 @@ object Matchers extends App {
   println(s"Reverse  ${List.reverse(List(1, 2, 3, 4))}")
 
   println(s"Add  ${List.add(40, List(1, 2, 3, 4))}")
+
+  println(s"Sum FoldLeft  ${List.sumFoldLeft(List(1, 2, 3, 4))}")
+
+  println(s"Add One :  ${List.addToList(List(1, 2, 3, 4) ,  60)}")
+
+  println(s"Add Two :  ${List.addToList2(List(1, 2, 3, 4) ,  60)}")
+
+
+
 }
