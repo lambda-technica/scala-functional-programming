@@ -13,6 +13,12 @@ object TreeManipulation {
 
     }
 
+  def maxvalue( t: Tree[Int]) : Int = t match {
+
+    case Leaf( n ) =>  n
+    case Branch(l, r) => maxvalue(l) max maxvalue(r)
+
+  }
 
 }
 
@@ -23,5 +29,6 @@ object Trees extends  App {
 
 
   println(s"Tree size : ${TreeManipulation.size(tree)}")
+  println(s"Tree max value : ${TreeManipulation.maxvalue(tree)}")
 
 }
